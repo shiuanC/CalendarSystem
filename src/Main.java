@@ -9,6 +9,7 @@ public class Main {
 		String word = scanner.nextLine();
 		
 	    System.out.println(word);
+	    scanner.close();
 	}
 	
 	/** Check Date is valid or not

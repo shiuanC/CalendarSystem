@@ -37,8 +37,26 @@ public class Date {
 		return ( y*365 + y/4 - y/100 + y/400 + totalDays);
 	}
 	
-	void printFutureDate(int dayNum) {
+	String printFutureDate(int remainDays) {
 		// recursion method
+		
+		if(remainDays <= month.numOfDays-date) {
+			return Integer.toString(year.year) + "/" + Integer.toString(month.month) + "/" + Integer.toString(remainDays+date);
+		}else {
+			int newMonth, newYear;
+			if(month.month == 12) {
+				newMonth = 1;
+				newYear = year.year +1;
+			}else {
+				newMonth = month.month + 1;
+				newYear = year.year;
+				
+			}
+			Date next = new Date( newYear, newMonth, 0);
+			return next.printFutureDate(remainDays - (month.numOfDays-date));
+		}
+		
+		
 	}
 	
 	String getPrintFormat(int y, int m, int d) {

@@ -11,19 +11,14 @@ public class Month {
 	}
 	
 	int getNumOfDays(int month) {
-		if(month % 2 == 1) {
-			return 31;
-		}else {
-			if(month != 2) {
-				return 30;
-			}else {
-				if(year.isLeap()) {
-					return 29;
-				}else {
-					return 28;
-				}
-			}
+		int[] arr = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		
+		if(year.isLeap()) {
+			arr[1] = 29;
 		}
+	
+		return arr[month-1];
+		
 	}
 	
 	Month nextMonth() {

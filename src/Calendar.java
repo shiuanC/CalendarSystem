@@ -70,7 +70,8 @@ public class Calendar {
 				System.out.print("請輸入往後推算的天數：");
 				num = scanner.nextInt();
 				System.out.println();
-				today.printFutureDate(num);
+				String futureDate = today.printFutureDate(num);
+				System.out.println("往後" + Integer.toString(num) + "天是" + futureDate);
 				
 				break;
 			// Case E: Exit
@@ -87,5 +88,7 @@ public class Calendar {
 				break;
 			}
 		}while(option != 'Q' && option != 'E');
+		
+		scanner.close();
 	}
 }
