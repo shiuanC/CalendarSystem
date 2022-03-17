@@ -12,7 +12,7 @@ public class Date {
 		day = getDayNum(year, month, date);
 	}
 	
-	int getDayNum(int year, int month, int date) {
+	private int getDayNum(int year, int month, int date) {
 		int y = year;
 		int m = month;
 		int d = date;
@@ -39,7 +39,6 @@ public class Date {
 	
 	String printFutureDate(int remainDays) {
 		// recursion method
-		
 		if(remainDays <= month.numOfDays-date) {
 			return Integer.toString(year.year) + "/" + Integer.toString(month.month) + "/" + Integer.toString(remainDays+date);
 		}else {
@@ -55,12 +54,5 @@ public class Date {
 			Date next = new Date( newYear, newMonth, 0);
 			return next.printFutureDate(remainDays - (month.numOfDays-date));
 		}
-		
-		
 	}
-	
-	String getPrintFormat(int y, int m, int d) {
-		return Integer.toString(y) + "/"+ Integer.toString(m) + "/" + Integer.toString(d);
-	}
-
 }

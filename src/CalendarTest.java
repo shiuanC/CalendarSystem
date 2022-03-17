@@ -4,10 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MainTest {
-	
-	String Date = "2022/02/29";
-	Main x = new Main();
+class CalendarTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -19,8 +16,7 @@ class MainTest {
 
 	@Test
 	void test() {
-		assertEquals(true, x.ValidDate(Date));
-		//fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 }
