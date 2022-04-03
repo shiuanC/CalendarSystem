@@ -29,6 +29,7 @@ public class Calendar {
 		System.out.println("3) C 計算天數");
 		System.out.println("4) D 計算日期");
 		System.out.println("5) E 離開");
+		Diary diary = new Diary();
 		
 		do {
 			char input;
@@ -69,10 +70,10 @@ public class Calendar {
 				// Case E: Exit
 				case 'F':
 					System.out.println("編輯日記");
-					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）"); break;
 				case 'G':
 					System.out.println("搜尋日記");
-					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）"); break;
 				// Case Q: Exit
 				case 'Q':
 					System.out.println("結束使用");

@@ -1,7 +1,7 @@
 
 public class CalendarSystem {
+	static Calendar calendar = new Calendar();
 	public static void main(String[] args) {
-		Calendar calendar = new Calendar();
 		calendar.showMenu('\0');
 	}
 }
