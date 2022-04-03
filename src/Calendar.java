@@ -30,7 +30,9 @@ public class Calendar {
 		System.out.println("2) B 西元轉換干支、生肖");
 		System.out.println("3) C 計算天數");
 		System.out.println("4) D 計算日期");
-		System.out.println("5) E 離開");
+		System.out.println("5) F 新增日記");
+		System.out.println("6) G 查看日記");
+		System.out.println("7) E 離開");
 		
 		
 		do {
@@ -71,11 +73,11 @@ public class Calendar {
 					break;
 				// Case E: Exit
 				case 'F':
-					System.out.println("編輯日記");
+					System.out.println("新增日記");
 					addDiaryContent();
 					System.out.println("請輸入指令號碼或Ｑ（結束使用）"); break;
 				case 'G':
-					System.out.println("搜尋日記");
+					System.out.println("查看日記");
 					searchDiaryContent();
 					System.out.println("請輸入指令號碼或Ｑ（結束使用）"); break;
 				// Case Q: Exit
@@ -204,7 +206,7 @@ public class Calendar {
 	}
 	
 	private void addDiaryContent() {
-		System.out.print("請輸入想要紀錄的日期：");
+		System.out.print("請輸入想要紀錄的日期（年/月/日）：");
 		String date = scanner.next();
 		String[] words = date.split("/");
 		if(words.length == 3) {
