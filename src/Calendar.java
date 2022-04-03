@@ -9,6 +9,7 @@ public class Calendar {
 	String[] words = dtf.format(localDate).split("/");
 	Date today = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
 	Scanner scanner = new Scanner(System.in);
+	Diary diary = new Diary();
 	
 	/***顯示 menu，依據不同的選項執行相應的功能。
 	 * @param testInput
@@ -21,6 +22,7 @@ public class Calendar {
 	void showMenu(char testInput) {
 		char option = '\0';
 		boolean exceptionFlag = false;
+		diary.init();
 		System.out.println("請輸入指令號碼或Ｑ（結束使用）");
 		System.out.println();
 		System.out.println("輸入指令：");
@@ -29,7 +31,7 @@ public class Calendar {
 		System.out.println("3) C 計算天數");
 		System.out.println("4) D 計算日期");
 		System.out.println("5) E 離開");
-		Diary diary = new Diary();
+		
 		
 		do {
 			char input;
@@ -70,9 +72,11 @@ public class Calendar {
 				// Case E: Exit
 				case 'F':
 					System.out.println("編輯日記");
+					addDiaryContent();
 					System.out.println("請輸入指令號碼或Ｑ（結束使用）"); break;
 				case 'G':
 					System.out.println("搜尋日記");
+					searchDiaryContent();
 					System.out.println("請輸入指令號碼或Ｑ（結束使用）"); break;
 				// Case Q: Exit
 				case 'Q':
@@ -197,5 +201,35 @@ public class Calendar {
 			throw new InputMismatchException();
 		}
 		
+	}
+	
+	private void addDiaryContent() {
+		System.out.print("請輸入想要紀錄的日期：");
+		String date = scanner.next();
+		String[] words = date.split("/");
+		if(words.length == 3) {
+			Date addDay = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
+			scanner.nextLine();
+			System.out.println("請輸入內容：");
+			String content = scanner.nextLine();
+			diary.addContent(addDay, content);
+			System.out.println();
+		}else {
+			throw new ArrayIndexOutOfBoundsException("請確認格式是否正確，格式為：（年/月/日）需要有兩個斜線。");
+		}
+	}
+	
+	private void searchDiaryContent() {
+		System.out.print("請輸入想要搜尋的日期（年/月/日）：");
+		String date = scanner.next();
+		String[] words = date.split("/");
+		if(words.length == 3) {
+			Date searchDay = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
+			String output = diary.searchContent(searchDay);
+			System.out.println(output);
+			System.out.println();
+		}else {
+			throw new ArrayIndexOutOfBoundsException("請確認格式是否正確，格式為：（年/月/日）需要有兩個斜線。");
+		}
 	}
 }
