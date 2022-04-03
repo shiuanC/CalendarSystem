@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Calendar {
@@ -9,13 +10,16 @@ public class Calendar {
 	Date today = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
 	Scanner scanner = new Scanner(System.in);
 	/***顯示 menu，依據不同的選項執行相應的功能。
-	 * @param no parameter
+	 * @param testInput
 	 * @return void
-	 * Example: just call it
-	 * Time Estimate: O(1)
+	 * Examples:
+	 * 		Calendar.showMenu('\0') 使用者可以根據選單的只是輸入指令
+	 * 		Calendar.showMenu('E') 測試用，測試輸入 option 'E' 的結果
+	 * Time Estimate: O(N), N = number of options
 	 */
 	void showMenu(char testInput) {
 		char option = '\0';
+		boolean exceptionFlag = false;
 		System.out.println("請輸入指令號碼或Ｑ（結束使用）");
 		System.out.println();
 		System.out.println("輸入指令：");
@@ -27,42 +31,61 @@ public class Calendar {
 		
 		do {
 			char input;
-			if(testInput != '\0')
+			if(testInput != '\0') {
 				input = testInput;
-			else
+			}
+			else if (exceptionFlag) {
+				input = option;
+				exceptionFlag = false;
+			}
+			else {
 				input = scanner.next().charAt(0);
+			}
+			
 			option = Character.toUpperCase(input);
-			switch(option) {
-			// Case A: Show the calendar of the month
-			case 'A':
-				showMonthCalendar();
-				break;
-			// Case B: Show the Chinese Year and the Animal
-			case 'B':
-				showChineseYearAnimal();
-				break;
-			// Case C: Show the number of days until the date
-			case 'C':
-				showFutureDays();
-				break;
-			// Case D: Show the date after the number of day
-			case 'D':
-				showNumOfDays();
-				break;
-			// Case E: Exit
-			case 'E':
-				System.out.println("離開");
-				break;
-			// Case Q: Exit
-			case 'Q':
-				System.out.println("結束使用");
-				break;
-			// default: Get the new input
-			default:
-				System.out.println("錯誤：invalid option。只能輸入 A, B, C, D, E, 或 Q");
-				if(testInput != '\0')
-					option = 'Q';
-				break;
+			try {
+				switch(option) {
+				// Case A: Show the calendar of the month
+				case 'A':
+					showMonthCalendar();
+					break;
+				// Case B: Show the Chinese Year and the Animal
+				case 'B':
+					showChineseYearAnimal();
+					break;
+				// Case C: Show the number of days until the date
+				case 'C':
+					showFutureDays();
+					break;
+				// Case D: Show the date after the number of day
+				case 'D':
+					showNumOfDays();
+					break;
+				// Case E: Exit
+				case 'E':
+					System.out.println("離開");
+					break;
+				// Case E: Exit
+				case 'F':
+					System.out.println("編輯日記");
+					break;
+				case 'G':
+					System.out.println("搜尋日記");
+					break;
+				// Case Q: Exit
+				case 'Q':
+					System.out.println("結束使用");
+					break;
+				// default: Get the new input
+				default:
+					System.out.println("錯誤：invalid option。只能輸入 A, B, C, D, E, 或 Q");
+					if(testInput != '\0')
+						option = 'Q';
+					break;
+				}
+			}catch(IllegalArgumentException ex){
+				System.out.println("錯誤：" + ex.getMessage());
+				exceptionFlag = true;
 			}
 		}while(option != 'Q' && option != 'E');
 		
@@ -79,6 +102,7 @@ public class Calendar {
 		System.out.print("請輸入欲查詢日期（年/月/日）：");
 		String date = scanner.next();
 		String[] words = date.split("/");
+		Date dateForCatchError = new Date( Integer.parseInt(words[0]), Integer.parseInt(words[1]),  Integer.parseInt(words[2]));
 		Month month = new Month( Integer.parseInt(words[0]), Integer.parseInt(words[1]) );			
 		System.out.println();
 		month.printCalendar();
@@ -92,12 +116,16 @@ public class Calendar {
 	 */
 	private void showChineseYearAnimal() {
 		System.out.print("請輸入欲查詢年：");
-		int num = scanner.nextInt();
-		System.out.println();
-		
-		Year year = new Year(num);
-		String output = Integer.toString(num) + "是" + year.getStemAndBranch() + "年，屬" + year.getZodiac();
-		System.out.println(output);
+		int num = 1;
+		try {
+			num = scanner.nextInt();
+			System.out.println();
+			Year year = new Year(num);
+			String output = Integer.toString(num) + "是" + year.getStemAndBranch() + "年，屬" + year.getZodiac();
+			System.out.println(output);
+		}catch(InputMismatchException ex){
+			System.out.println("必須輸入整數");
+		}
 	}
 	
 	/***取得使用者想要查詢的日期，呼叫 Date 物件的 getTotalDay() 取得該日與今天距離 1/1/1 的天數，並將兩數值相減，
