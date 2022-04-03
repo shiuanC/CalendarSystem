@@ -49,19 +49,19 @@ public class Calendar {
 				// Case A: Show the calendar of the month
 				case 'A':
 					showMonthCalendar();
-					break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
 				// Case B: Show the Chinese Year and the Animal
 				case 'B':
 					showChineseYearAnimal();
-					break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
 				// Case C: Show the number of days until the date
 				case 'C':
 					showFutureDays();
-					break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
 				// Case D: Show the date after the number of day
 				case 'D':
 					showNumOfDays();
-					break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
 				// Case E: Exit
 				case 'E':
 					System.out.println("離開");
@@ -69,10 +69,10 @@ public class Calendar {
 				// Case E: Exit
 				case 'F':
 					System.out.println("編輯日記");
-					break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
 				case 'G':
 					System.out.println("搜尋日記");
-					break;
+					System.out.println("請輸入指令號碼或Ｑ（結束使用）");break;
 				// Case Q: Exit
 				case 'Q':
 					System.out.println("結束使用");
@@ -91,10 +91,13 @@ public class Calendar {
 			}catch(InputMismatchException ex){
 				exceptionFlag = true;
 				continue;
+			}catch(ArrayIndexOutOfBoundsException ex){
+				System.out.println("錯誤：" + ex.getMessage());
+				exceptionFlag = true;
+				continue;
 			}
-			System.out.println("請輸入指令號碼或Ｑ（結束使用）");
 		}while(option != 'Q' && option != 'E');
-		
+		// save the diary to csv file
 		scanner.close();
 	}
 	
@@ -108,10 +111,15 @@ public class Calendar {
 		System.out.print("請輸入欲查詢日期（年/月/日）：");
 		String date = scanner.next();
 		String[] words = date.split("/");
-		Date dateForCatchError = new Date( Integer.parseInt(words[0]), Integer.parseInt(words[1]),  Integer.parseInt(words[2]));
-		Month month = new Month( Integer.parseInt(words[0]), Integer.parseInt(words[1]) );			
-		System.out.println();
-		month.printCalendar();
+		if(words.length == 3) {
+			Date dateForCatchError = new Date( Integer.parseInt(words[0]), Integer.parseInt(words[1]),  Integer.parseInt(words[2]));
+			Month month = new Month( Integer.parseInt(words[0]), Integer.parseInt(words[1]) );			
+			System.out.println();
+			month.printCalendar();
+		}else {
+			throw new ArrayIndexOutOfBoundsException("請確認格式是否正確，格式為：（年/月/日）需要有兩個斜線。");
+		}
+		
 	}
 	
 	/***取得使用者想要查詢的年份，並呼叫 year 物件的 getStemAndBranch() 與 getZodiac()，顯示干支與生肖。
@@ -147,19 +155,25 @@ public class Calendar {
 		System.out.print("請輸入欲查詢日期（年/月/日）：");
 		String date = scanner.next();
 		System.out.println();
+		
 		String[] words = date.split("/");
-		Date futureDay = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
-		int days = futureDay.getTotalDay() - today.getTotalDay();
-		String output;
-		if(days > 0) {
-			output = date + "距離今天還有" + Integer.toString(days) + "天";
-		}else if(days < 0) {
-			output = date + "距離今天已經過了" + Integer.toString(-1*days) + "天了";
+		if(words.length == 3) {
+			Date futureDay = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
+			int days = futureDay.getTotalDay() - today.getTotalDay();
+			String output;
+			if(days > 0) {
+				output = date + "距離今天還有" + Integer.toString(days) + "天";
+			}else if(days < 0) {
+				output = date + "距離今天已經過了" + Integer.toString(-1*days) + "天了";
+			}else {
+				output = "就是今天！";
+			}
+			System.out.println(output);
+			System.out.println();
 		}else {
-			output = "就是今天！";
+			throw new ArrayIndexOutOfBoundsException("請確認格式是否正確，格式為：（年/月/日）需要有兩個斜線。");
 		}
-		System.out.println(output);
-		System.out.println();
+		
 	}
 	
 	/***取得使用者欲往後推算的天數，呼叫 Date 物件的 printFutureDate()，並顯示到指定之期還需要經過多少天。
