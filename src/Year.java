@@ -5,12 +5,15 @@ public class Year {
 	int branch; // 地支 = 生肖
 	
 	Year(int num){
+		if(num <= 0) {
+			throw new IllegalArgumentException("年份須大於 0");
+		}
 		year = num;
 		stem = ( (num-3) % 60 ) % 10;
 		branch = ( (num-3) % 60 ) % 12;
 	}
 	
-	boolean isLeap() {
+	public boolean isLeap() {
 		if(year % 400 == 0) {
 			return true;
 		}else if(year % 100 == 0) {
@@ -23,14 +26,14 @@ public class Year {
 	}
 	
 	// 干支
-	String getStemAndBranch() {
+	public String getStemAndBranch() {
 		char[] stems = {'癸', '甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬'};
 		char[] branches = {'亥', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌'};
 		return Character.toString(stems[stem]) + Character.toString(branches[branch]);
 	}
 	
 	// 生肖
-	String getZodiac() {
+	public String getZodiac() {
 		char[] animals = {'豬', '鼠', '牛', '虎', '兔', '龍', '蛇', '馬', '羊', '猴', '雞', '狗'};
 		return Character.toString(animals[branch]);
 	}

@@ -5,23 +5,25 @@ public class Month {
 	int numOfDays;
 	
 	Month(int year, int month){
+		if(month > 12 || month < 1) {
+			throw new IllegalArgumentException("月份只有 1~12 月");
+		}
 		this.year = new Year(year);
 		this.month = month;
 		numOfDays = getNumOfDays(month);
 	}
 	
-	int getNumOfDays(int month) {
-		int[] arr = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-		
-		if(year.isLeap()) {
-			arr[1] = 29;
+	private int getNumOfDays(int month) {
+		if(month > 12 || month < 1) {
+			throw new IllegalArgumentException("月份只有 1~12 月");
 		}
-	
+		int[] arr = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		if(year.isLeap())
+			arr[1] = 29;
 		return arr[month-1];
-		
 	}
 	
-	Month nextMonth() {
+	public Month nextMonth() {
 		if(month == 12) {
 			return new Month(year.year+1, 1);
 		}else {
@@ -29,7 +31,7 @@ public class Month {
 		}
 	}
 	
-	void printCalendar() {
+	public void printCalendar() {
 		Date firstDate = new Date(year.year, month, 1);
 		int currentDay = firstDate.day;
 		
@@ -43,5 +45,7 @@ public class Month {
 			if(currentDay == 0)
 				System.out.print('\n');
 		}
+		if(currentDay != 0)
+			System.out.print('\n');
 	}
 }

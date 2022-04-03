@@ -8,6 +8,9 @@ public class Date {
 	Date(int year, int month, int date){
 		this.year = new Year(year);
 		this.month = new Month(year, month);
+		if(date < 1 || date > this.month.numOfDays){
+			throw new IllegalArgumentException("輸入了錯誤的天數");
+		}
 		this.date = date;
 		day = getDayNum(year, month, date);
 	}
@@ -23,7 +26,7 @@ public class Date {
 		return ( y + y/4 - y/100 + y/400 + base[m-1] + d) % 7; // (total days) % 7
 	}
 	
-	int getTotalDay() {
+	public int getTotalDay() {
 		int y = year.year;
 		int m = month.month;
 		int d = date;
@@ -37,7 +40,10 @@ public class Date {
 		return ( y*365 + y/4 - y/100 + y/400 + totalDays);
 	}
 	
-	String printFutureDate(int remainDays) {
+	public String getFutureDate(int remainDays) {
+		if(remainDays < 0) {
+			throw new IllegalArgumentException("請輸入大於 0 的數");
+		}
 		// recursion method
 		if(remainDays <= month.numOfDays-date) {
 			return Integer.toString(year.year) + "/" + Integer.toString(month.month) + "/" + Integer.toString(remainDays+date);
@@ -51,8 +57,9 @@ public class Date {
 				newYear = year.year;
 				
 			}
-			Date next = new Date( newYear, newMonth, 0);
-			return next.printFutureDate(remainDays - (month.numOfDays-date));
+			Date next = new Date( newYear, newMonth, 1);
+			remainDays--;
+			return next.getFutureDate(remainDays - (month.numOfDays-date));
 		}
 	}
 }
