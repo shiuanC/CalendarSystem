@@ -31,6 +31,8 @@ public class Calendar {
 		System.out.println("3) C 計算天數");
 		System.out.println("4) D 計算日期");
 		System.out.println("5) E 離開");
+		System.out.println("6) F 編輯日記");
+		System.out.println("7) G 搜尋日記");
 		
 		
 		do {
@@ -108,6 +110,9 @@ public class Calendar {
 	
 	/***取得使用者想要查詢的日期，並呼叫 month 物件的 printCalendar() 顯示包含當日的月份。
 	 * @param no parameter
+	 * @throws ArrayIndexOutOfBoundsException
+	 * If the input of the date is in the wrong format,
+	 * it will throw ArrayIndexOutOfBoundsException
 	 * @return void
 	 * Example: just call it
 	 * Time Estimate: O(1)
@@ -129,6 +134,9 @@ public class Calendar {
 	
 	/***取得使用者想要查詢的年份，並呼叫 year 物件的 getStemAndBranch() 與 getZodiac()，顯示干支與生肖。
 	 * @param no parameter
+	 * @throws InputMismatchException
+	 * If the input is not a year (an integer),
+	 * it will throw InputMismatchException
 	 * @return void
 	 * Example: just call it
 	 * Time Estimate: O(1)
@@ -152,6 +160,9 @@ public class Calendar {
 	/***取得使用者想要查詢的日期，呼叫 Date 物件的 getTotalDay() 取得該日與今天距離 1/1/1 的天數，並將兩數值相減，
 	 ***依據相減的結果顯示不同的輸出結果（未來天數、過去天數、今天）。
 	 * @param no parameter
+	 * @throws ArrayIndexOutOfBoundsException
+	 * If the input of the date is in the wrong format,
+	 * it will throw ArrayIndexOutOfBoundsException
 	 * @return void
 	 * Example: just call it
 	 * Time Estimate: O(1)
@@ -183,6 +194,9 @@ public class Calendar {
 	
 	/***取得使用者欲往後推算的天數，呼叫 Date 物件的 printFutureDate()，並顯示到指定之期還需要經過多少天。
 	 * @param no parameter
+	 * @throws InputMismatchException
+	 * If the input is not an integer,
+	 * it will throw InputMismatchException
 	 * @return void
 	 * Example: just call it
 	 * Time Estimate: O(1)
@@ -203,6 +217,15 @@ public class Calendar {
 		
 	}
 	
+	/***詢問使用者想要紀錄的日期與內容，呼叫 Diary.addContent() 新增內容
+	 * @param no parameter
+	 * @throws ArrayIndexOutOfBoundsException
+	 * If the input of the date is in the wrong format,
+	 * it will throw ArrayIndexOutOfBoundsException
+	 * @return void
+	 * Example: just call it
+	 * Time Estimate: O(n), n = number of record (depends on Diary.addContent())
+	 */
 	private void addDiaryContent() {
 		System.out.print("請輸入想要紀錄的日期：");
 		String date = scanner.next();
@@ -219,6 +242,15 @@ public class Calendar {
 		}
 	}
 	
+	/***詢問使用者想要搜尋的日期，呼叫 Diary.searchContent() 搜尋該日的內容
+	 * @param no parameter
+	 * @throws ArrayIndexOutOfBoundsException
+	 * If the input of the date is in the wrong format,
+	 * it will throw ArrayIndexOutOfBoundsException
+	 * @return void
+	 * Example: just call it
+	 * Time Estimate: O(n), n = number of record (depends on Diary.searchContent())
+	 */
 	private void searchDiaryContent() {
 		System.out.print("請輸入想要搜尋的日期（年/月/日）：");
 		String date = scanner.next();
