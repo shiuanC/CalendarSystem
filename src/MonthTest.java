@@ -24,7 +24,6 @@ class MonthTest {
 		test202212 = null;
 		test202204 = null;
 	}
-	
 	/*
 	 * test method: constructors
 	 * test month: 2020.1, 2022.12, 2022.4

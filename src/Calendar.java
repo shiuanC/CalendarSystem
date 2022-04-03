@@ -9,6 +9,7 @@ public class Calendar {
 	String[] words = dtf.format(localDate).split("/");
 	Date today = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
 	Scanner scanner = new Scanner(System.in);
+	
 	/***顯示 menu，依據不同的選項執行相應的功能。
 	 * @param testInput
 	 * @return void
@@ -86,7 +87,12 @@ public class Calendar {
 			}catch(IllegalArgumentException ex){
 				System.out.println("錯誤：" + ex.getMessage());
 				exceptionFlag = true;
+				continue;
+			}catch(InputMismatchException ex){
+				exceptionFlag = true;
+				continue;
 			}
+			System.out.println("請輸入指令號碼或Ｑ（結束使用）");
 		}while(option != 'Q' && option != 'E');
 		
 		scanner.close();
@@ -125,6 +131,8 @@ public class Calendar {
 			System.out.println(output);
 		}catch(InputMismatchException ex){
 			System.out.println("必須輸入整數");
+			scanner = new Scanner(System.in);
+			throw new InputMismatchException();
 		}
 	}
 	
@@ -162,9 +170,17 @@ public class Calendar {
 	 */
 	private void showNumOfDays() {
 		System.out.print("請輸入往後推算的天數：");
-		int num = scanner.nextInt();
-		System.out.println();
-		String futureDate = today.getFutureDate(num);
-		System.out.println("往後" + Integer.toString(num) + "天是" + futureDate);
+		int num;
+		try {
+			num = scanner.nextInt();
+			System.out.println();
+			String futureDate = today.getFutureDate(num);
+			System.out.println("往後" + Integer.toString(num) + "天是" + futureDate);
+		}catch(InputMismatchException ex){
+			System.out.println("必須輸入整數");
+			scanner = new Scanner(System.in);
+			throw new InputMismatchException();
+		}
+		
 	}
 }
