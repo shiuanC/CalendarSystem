@@ -31,7 +31,9 @@ class CalendarTest {
 				"2) B 西元轉換干支、生肖\n" + 
 				"3) C 計算天數\n" + 
 				"4) D 計算日期\n" + 
-				"5) E 離開\n" + 
+				"5) F 新增日記\n" + 
+				"6) G 查看日記\n" + 
+				"7) E 離開\n" + 
 				"離開\n";
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(stream);
@@ -56,7 +58,9 @@ class CalendarTest {
 				"2) B 西元轉換干支、生肖\n" + 
 				"3) C 計算天數\n" + 
 				"4) D 計算日期\n" + 
-				"5) E 離開\n" + 
+				"5) F 新增日記\n" + 
+				"6) G 查看日記\n" + 
+				"7) E 離開\n" + 
 				"錯誤：invalid option。只能輸入 A, B, C, D, E, 或 Q\n";
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(stream);

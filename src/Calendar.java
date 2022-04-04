@@ -45,7 +45,8 @@ public class Calendar {
 				exceptionFlag = false;
 			}
 			else {
-				input = scanner.next().charAt(0);
+				String inputStr = scanner.next();
+				input = inputStr.charAt(0);
 			}
 			
 			option = Character.toUpperCase(input);
@@ -117,8 +118,9 @@ public class Calendar {
 	 * Example: just call it
 	 * Time Estimate: O(1)
 	 */
-	private void showMonthCalendar() {
+	void showMonthCalendar() {
 		System.out.print("請輸入欲查詢日期（年/月/日）：");
+		scanner = new Scanner(System.in);
 		String date = scanner.next();
 		String[] words = date.split("/");
 		if(words.length == 3) {
@@ -141,10 +143,11 @@ public class Calendar {
 	 * Example: just call it
 	 * Time Estimate: O(1)
 	 */
-	private void showChineseYearAnimal() {
+	void showChineseYearAnimal() {
 		System.out.print("請輸入欲查詢年：");
 		int num = 1;
 		try {
+			scanner = new Scanner(System.in);
 			num = scanner.nextInt();
 			System.out.println();
 			Year year = new Year(num);
@@ -167,8 +170,9 @@ public class Calendar {
 	 * Example: just call it
 	 * Time Estimate: O(1)
 	 */
-	private void showFutureDays() {
+	void showFutureDays() {
 		System.out.print("請輸入欲查詢日期（年/月/日）：");
+		scanner = new Scanner(System.in);
 		String date = scanner.next();
 		System.out.println();
 		
@@ -201,10 +205,11 @@ public class Calendar {
 	 * Example: just call it
 	 * Time Estimate: O(1)
 	 */
-	private void showNumOfDays() {
+	void showNumOfDays() {
 		System.out.print("請輸入往後推算的天數：");
 		int num;
 		try {
+			scanner = new Scanner(System.in);
 			num = scanner.nextInt();
 			System.out.println();
 			String futureDate = today.getFutureDate(num);
@@ -226,14 +231,16 @@ public class Calendar {
 	 * Example: just call it
 	 * Time Estimate: O(n), n = number of record (depends on Diary.addContent())
 	 */
-	private void addDiaryContent() {
+	void addDiaryContent() {
 		System.out.print("請輸入想要紀錄的日期（年/月/日）：");
+		scanner = new Scanner(System.in);
 		String date = scanner.next();
 		String[] words = date.split("/");
 		if(words.length == 3) {
 			Date addDay = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
 			scanner.nextLine();
 			System.out.println("請輸入內容：");
+			scanner = new Scanner(System.in);
 			String content = scanner.nextLine();
 			diary.addContent(addDay, content);
 			System.out.println();
@@ -251,9 +258,12 @@ public class Calendar {
 	 * Example: just call it
 	 * Time Estimate: O(n), n = number of record (depends on Diary.searchContent())
 	 */
-	private void searchDiaryContent() {
-		System.out.print("請輸入想要搜尋的日期（年/月/日）：");
+	void searchDiaryContent() {
+		System.out.print("請輸入欲查詢日期（年/月/日）：");
+		scanner = new Scanner(System.in);
 		String date = scanner.next();
+		System.out.println();
+		
 		String[] words = date.split("/");
 		if(words.length == 3) {
 			Date searchDay = new Date (Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
