@@ -34,7 +34,6 @@ public class Calendar {
 		System.out.println("6) F 編輯日記");
 		System.out.println("7) G 搜尋日記");
 		
-		
 		do {
 			char input;
 			if(testInput != '\0') {
